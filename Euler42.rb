@@ -1,7 +1,7 @@
 require 'benchmark'
 
 class Euler42
-  attr_accessor :words, :alphabet, :triangles, :sum
+  #attr_accessor :words, :alphabet, :triangles, :sum
   
   def initialize(words)
     @words = words
