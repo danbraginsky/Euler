@@ -7,9 +7,7 @@ class Euler89
 		@arrOfRomans = []
 		@file = File.new("roman.txt", "r")  #Brings in the file\
 		@hashOfRoman = {"I" => 1, "V" => 5, "X" => 10, "L" => 50, "C" => 100, "D" => 500, "M" => 1000}
-		#@hashOfValue = {1=>"I", 5=>"V", 10=>"X", 50=>"L", 100=>"C", 500=>"D",1000=>"M"}
 		@hashOfSubRoman = {"IV"=>4, "IX" => 9, "XL" => 40, "XC" =>90, "CD"=>400, "CM"=>900}
-		#@hashOfSubValue = {4=>"IV", 9=>"IX", 40=>"XL", 90=>'XC', 400=>'CD', 900=>'CM'}
 		@hashOfTotalRoman = {"M"=>1000,"CM"=>900,"D"=>500,"CD"=>400,"C"=>100,"XC"=>90,"L"=>50,"XL"=>40,"X"=>10,"IX"=>9,"V"=>5,"IV"=>4,"I"=>1}
 		while (line = @file.gets)  #Cycles through all the lines
 			@arrOfRomans.push(line)  #Adds each line into arrOfRomans
@@ -17,27 +15,27 @@ class Euler89
 		@ArrOfIdeals = []
 	end  #endDef
 	def run()
-		sumOfText = 0
+		sumOfText = 0  #Roman numerals in the txt file
 		sumOfPerfect = 0
 		for roman in @arrOfRomans
 			sumOfText+=roman.length
-			sumOfPerfect+=numIntoRoman(romanIntoNum(roman)).length
+			sumOfPerfect+=numIntoRoman(romanIntoNum(roman)).length  #add the length of the ideal roman.
 		end
 		print sumOfText-sumOfPerfect
 	end
 	
 	def romanIntoNum(arg)
 		value = 0
-		@hashOfSubRoman.each do|roman,arabic|
+		@hashOfSubRoman.each do|roman,arabic|  #Goes through the hash of subtraction rule 
 			while(arg.include?(roman))
 				value+=arabic
-				arg = arg.sub(roman,'')
+				arg = arg.sub(roman,'')  #Delete the first instance of roman, and only the first
 			end
 		end
-		@hashOfRoman.each do|roman,arabic|
+		@hashOfRoman.each do|roman,arabic|  #Goes through hash of actual romans
 			while(arg.include?(roman))
-				value+=arg.count(roman)*arabic
-				arg = arg.delete!(roman)
+				value+=arabic
+				arg = arg.sub(roman,'')  #Delete the first instance of roman, and only the first
 			end
 		end
 		return value
@@ -45,14 +43,13 @@ class Euler89
 	
 	def numIntoRoman(num)
 		returnRoman = ""
-		@hashOfTotalRoman.each do|roman,arabic|
+		@hashOfTotalRoman.each do|roman,arabic|  #Go through hash of all Romans, including subtraction
 			while(arabic<=num)
 				returnRoman = returnRoman + roman
-				num-=arabic
+				num-=arabic  # Subtract the arabic value from the argument
 			end
 		end
 		return returnRoman	
-		#print returnRoman
 	end
 end
 
