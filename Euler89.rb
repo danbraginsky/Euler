@@ -16,7 +16,16 @@ class Euler89
 		end  #endWhile
 		@ArrOfIdeals = []
 	end  #endDef
-
+	def run()
+		sumOfText = 0
+		sumOfPerfect = 0
+		for roman in @arrOfRomans
+			sumOfText+=roman.length
+			sumOfPerfect+=numIntoRoman(romanIntoNum(roman)).length
+		end
+		print sumOfText-sumOfPerfect
+	end
+	
 	def romanIntoNum(arg)
 		value = 0
 		@hashOfSubRoman.each do|roman,arabic|
@@ -31,7 +40,7 @@ class Euler89
 				arg = arg.delete!(roman)
 			end
 		end
-		print value, "\n"
+		return value
 	end
 	
 	def numIntoRoman(num)
@@ -42,9 +51,10 @@ class Euler89
 				num-=arabic
 			end
 		end
-		print returnRoman
+		return returnRoman	
+		#print returnRoman
 	end
 end
 
 whatever = Euler89.new()
-whatever.numIntoRoman(41)
+whatever.run()
