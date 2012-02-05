@@ -10,7 +10,7 @@ class Euler89
 		@hashOfSubRoman = {"IV"=>4, "IX" => 9, "XL" => 40, "XC" =>90, "CD"=>400, "CM"=>900}
 		@hashOfTotalRoman = {"M"=>1000,"CM"=>900,"D"=>500,"CD"=>400,"C"=>100,"XC"=>90,"L"=>50,"XL"=>40,"X"=>10,"IX"=>9,"V"=>5,"IV"=>4,"I"=>1}
 		while (line = @file.gets)  #Cycles through all the lines
-			@arrOfRomans.push(line)  #Adds each line into arrOfRomans
+			@arrOfRomans.push(line.chomp)  #Adds each line into arrOfRomans
 		end  #endWhile
 		@ArrOfIdeals = []
 	end  #endDef
@@ -18,7 +18,9 @@ class Euler89
 		sumOfText = 0  #Roman numerals in the txt file
 		sumOfPerfect = 0
 		for roman in @arrOfRomans
-			sumOfText+=roman.length
+			difference = roman.length - numIntoRoman(romanIntoNum(roman)).length
+			#print difference
+			sumOfText+=roman.length  #Roman in @arrOfRomans
 			sumOfPerfect+=numIntoRoman(romanIntoNum(roman)).length  #add the length of the ideal roman.
 		end
 		print sumOfText-sumOfPerfect
